@@ -1,0 +1,13 @@
+<% include header %>
+	<div class="content"><h1>台大找直屬</h1>
+		<div class="note">為了確認你的身份，請填寫以下資訊</div><br>
+		<input name="sid" type="text" placeholder="你的學號"><br>
+		<select name="auth" id="auth">
+			<option value="0">選擇身份驗證方式</option>
+			<option value="1">輸入計中密碼</option>
+			<option value="2">收取信件驗證</option>
+		</select><br>
+		<div id="pass" style="display:none"><input name="password" type="password" placeholder="你的密碼"><br></div>
+		<a class="button" id="find" href="#confirm">開始驗證</a>
+	</div>
+<% include footer %>
