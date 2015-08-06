@@ -8,6 +8,6 @@
 		<input type="text" value="<%= junior.dept %>" disabled><br>
 		<input type="text" value="<%= junior.name %>" disabled><br>
 		<% } %>
-		<a class="button" target="_blank" href="https://mail.ntu.edu.tw/">分享到 Facebook</a>
+		<a class="button" onclick="ga('send','event','click','share');window.open('https://www.facebook.com/dialog/feed?app_id=<%= appId %>&display=popup&link=<%= rootUrl %>&redirect_uri=<%= rootUrl %>/shared', 'FbShare', 'height=400, width=600, resizable=0');">分享到 Facebook</a>
 	</div>
 <% include footer %>

@@ -12,6 +12,7 @@
 	</div>
 	<script>
 	function submit_auth() {
+		ga('send', 'event', 'click', 'register');
 		if($('#sid').val().length !== 9 || $('#auth').val() == 0 || ($('#auth').val() == 1 && $('#password').val() == '')) {
 			alert('請確認資料填寫正確');
 			return false;
@@ -26,9 +27,11 @@
 				password: $('#auth').val() == 1 ? $('#password').val() : ''
 			},
 			success: function(data) {
+				ga('send', 'event', 'register', 'success', $('#auth').val());
 				document.location.href = data.redirect;
 			},
 			error: function() {
+				ga('send', 'event', 'register', 'fail', $('#auth').val());
 				alert('發生錯誤 QQ，請確認資料正確');
 			}
 		});

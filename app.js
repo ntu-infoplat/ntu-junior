@@ -21,6 +21,9 @@ app.use(cookieSession({
 	keys: [config.session.key1, config.session.key2]
 }));
 
+app.locals.rootUrl = config.rootUrl;
+app.locals.appId = config.facebook.appId;
+
 if (!config.facebook.appId || !config.facebook.appSecret) {
 	throw new Error('facebook appId and appSecret required in config.js');
 }
