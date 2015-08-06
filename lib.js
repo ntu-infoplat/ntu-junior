@@ -54,7 +54,7 @@ exports.auth_mail = function(username, code) {
 			from: '台大找直屬 <ntu-junior@' + config.mailgun.domain + '>',
 			to: username + '@ntu.edu.tw',
 			subject: '台大找直屬 驗證信',
-			html: 'Hi,<br><br>感謝你使用台大找直屬，請點選以下連結以確認你的帳號<br><a href="' + config.rootUrl + 'confirm/' + code + '">' + config.rootUrl + 'confirm/' + code + '</a><br><br>如果你沒有註冊，請忽略此信'
+			html: 'Hi,<br><br>感謝你使用台大找直屬，請點選以下連結以確認你的帳號<br><a href="' + config.rootUrl + 'confirm/' + username + '/' + code + '">' + config.rootUrl + 'confirm/' + username + '/' + code + '</a><br><br>如果你沒有註冊，請忽略此信'
 		};
 
 		mailgun.messages().send(data, function(error, body) {

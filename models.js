@@ -24,6 +24,10 @@ var User = new mongoose.Schema({
     type: String,
     default: ''
   },
+  sid_pending: {
+    type: String,
+    default: ''
+  },
   email: {
     type: String,
     default: ''

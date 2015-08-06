@@ -114,7 +114,7 @@ app.post('/', function(req, res) {
 						msg: 'Error'
 					});
 				}
-				req.session.sid = sid
+				req.session.sid = sid;
 				res.json({
 					msg: 'Success',
 					redirect: '/'
@@ -131,10 +131,12 @@ app.post('/', function(req, res) {
 		new Promise.all([
 			new Promise(function(resolve, reject) {
 				models.User.findOneAndUpdate({
-					fbid: req.session.fbid
+					fbid: req.session.fbid,
+					sid: ''
 				}, {
 					$set: {
-						code: code
+						code: code,
+						sid_pending: sid
 					}
 				}, {
 					upsert: true,
@@ -212,6 +214,52 @@ app.get('/shared', function(req, res) {
 });
 app.get('/confirm', function(req, res) {
 	res.render('confirm');
+});
+app.get('/confirm/:sid/:code', function(req, res) {
+	if (!req.params.code || !req.params.sid || !req.session.fbid) {
+		return res.status(400).json({
+			msg: 'Please login first'
+		});
+	}
+	var sid_regex = /^[0-9ab]+$/;
+	var sid = req.params.sid.toLowerCase();
+	if (!sid_regex.test(sid) || sid.length !== 9) {
+		return res.status(400).json({
+			msg: 'Bad Request'
+		});
+	}
+
+	models.User.findOne({
+		sid: '',
+		sid_pending: sid,
+		code: req.params.code
+	}, function(err, user) {
+		if (err || !user) {
+			return res.status(400).json({
+				msg: 'Bad Request'
+			});
+		}
+		models.User.findOneAndUpdate({
+			_id: user._id
+		}, {
+			$set: {
+				sid: sid
+			}
+		}, {
+			upsert: true,
+			"new": false
+		}).exec(function(err, user) {
+			if (err) {
+				console.error(err);
+				return res.status(500).json({
+					msg: 'Error'
+				});
+			}
+			req.session.sid = sid;
+			res.redirect('/');
+		});
+
+	});
 });
 app.get('/logout', function(req, res) {
 	req.session = null;
