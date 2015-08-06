@@ -24,6 +24,4 @@ config.mailgun = {
 	domain: process.env.MAILGUN_DOMAIN
 }
 
-config.hash_salt = process.env.HASH_SALT;
-
 module.exports = config;
