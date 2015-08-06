@@ -1,0 +1,13 @@
+<% include header %>
+	<div class="content content-center"><h1>台大找直屬</h1>
+		<% if(!junior) { %>
+		<div class="note">找不到你的 B04 直屬 QQ</div><br>
+		<% } else { %>
+		<div class="note">以下是你的 B04 直屬</div><br>
+		<input type="text" value="<%= junior.sid %>" disabled><br>
+		<input type="text" value="<%= junior.dept %>" disabled><br>
+		<input type="text" value="<%= junior.name %>" disabled><br>
+		<% } %>
+		<a class="button" target="_blank" href="https://mail.ntu.edu.tw/">分享到 Facebook</a>
+	</div>
+<% include footer %>

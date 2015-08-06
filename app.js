@@ -54,11 +54,11 @@ app.get('/', function(req, res) {
 	if (!(req.session.fbid > 0)) {
 		// not logged in
 		return res.render('guest');
-	} else if (!(req.session.sid > 0)) {
+	} else if (!req.session.sid) {
 		return res.render('register');
 	}
 	var junior_sid = 'b04' + req.session.sid.substr(3, 9);
-	models.Junior.find({
+	models.Junior.findOne({
 		sid: junior_sid
 	}, function(err, junior) {
 		if (err) {
@@ -161,7 +161,7 @@ app.post('/', function(req, res) {
 	} else {
 		return res.status(400).json({
 			msg: 'Bad Request'
-		})
+		});
 	}
 });
 
@@ -209,6 +209,9 @@ app.get('/shared', function(req, res) {
 			success: post_data[1] == 0 ? false : true
 		});
 	});
+});
+app.get('/confirm', function(req, res) {
+	res.render('confirm');
 });
 app.get('/logout', function(req, res) {
 	req.session = null;

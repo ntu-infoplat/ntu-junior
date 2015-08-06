@@ -3,7 +3,7 @@ var models = require('../models');
 exports.authMiddleware = function(profile, req, callback) {
   var User = models.User;
   User.findOne({
-    id: profile.id
+    fbid: profile.id
   }, function(err, result) {
     if (err) {
       throw err;

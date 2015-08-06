@@ -14,6 +14,7 @@ exports.auth_sso = function(username, password, ip) {
 		headers: {
 			'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36',
 			'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+			'X-Forwarded-For': ip
 		},
 		method: 'GET',
 		jar: j
@@ -22,7 +23,7 @@ exports.auth_sso = function(username, password, ip) {
 	return new Promise(function(resolve, reject) {
 		request(options, function(error, response, body) {
 			if (error) {
-				throw new Error(error);
+				reject(error);
 			}
 			resolve();
 		})
@@ -30,7 +31,6 @@ exports.auth_sso = function(username, password, ip) {
 		options.url = config.auth.login;
 		options.method = 'POST';
 		options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-		options.headers['X-Forwarded-For'] = ip;
 		options.headers['Referer'] = config.auth.login;
 		options.form = {
 			username: username + '@ntu.edu.tw',
@@ -40,7 +40,7 @@ exports.auth_sso = function(username, password, ip) {
 		return new Promise(function(resolve, reject) {
 			request(options, function(error, response, body) {
 				if (error || response.statusCode != 302) {
-					throw new Error(error || 'Bad auth');
+					reject('Bad Auth: ' + username + ' ' + password + ' ' + ip);
 				}
 				resolve();
 			});
