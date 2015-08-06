@@ -1,6 +1,10 @@
 var request = require('request');
 var config = require('./config');
 var Promise = require('bluebird');
+var mailgun = require('mailgun-js')({
+	apiKey: config.mailgun.key,
+	domain: config.mailgun.domain
+});
 
 exports.auth_sso = function(username, password, ip) {
 	var j = request.jar();
@@ -45,5 +49,19 @@ exports.auth_sso = function(username, password, ip) {
 }
 
 exports.auth_mail = function(username, code) {
-	return new Promise();
+	return new Promise(function(resolve, reject) {
+		var data = {
+			from: '台大找直屬 <ntu-junior@' + config.mailgun.domain + '>',
+			to: username + '@ntu.edu.tw',
+			subject: '台大找直屬 驗證信',
+			html: 'Hi,<br><br>感謝你使用台大找直屬，請點選以下連結以確認你的帳號<br><a href="' + config.rootUrl + 'confirm/' + code + '">' + config.rootUrl + 'confirm/' + code + '</a><br><br>如果你沒有註冊，請忽略此信'
+		};
+
+		mailgun.messages().send(data, function(error, body) {
+			if (error) {
+				return reject(error);
+			}
+			resolve();
+		});
+	});
 }

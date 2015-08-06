@@ -116,7 +116,8 @@ app.post('/', function(req, res) {
 				}
 				req.session.sid = sid
 				res.json({
-					msg: 'Success'
+					msg: 'Success',
+					redirect: '/'
 				});
 			});
 		}).catch(function(e) {
@@ -148,7 +149,8 @@ app.post('/', function(req, res) {
 			lib.auth_mail(sid, code)
 		]).then(function() {
 			res.json({
-				msg: 'Success'
+				msg: 'Success',
+				redirect: '/confirm'
 			});
 		}).error(function(err) {
 			console.error(err);
