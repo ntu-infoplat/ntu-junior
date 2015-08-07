@@ -60,7 +60,7 @@ app.get('/', function(req, res) {
 	} else if (!req.session.sid) {
 		return res.render('register');
 	}
-	var junior_sid = 'b04' + req.session.sid.substr(3, 9);
+	var junior_sid = 'b04' + req.session.sid.substr(3, 9).toUpperCase();
 	models.Junior.findOne({
 		sid: junior_sid
 	}, function(err, junior) {
