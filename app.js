@@ -118,6 +118,7 @@ app.post('/', function(req, res) {
 					});
 				}
 				req.session.sid = sid;
+				console.log('Success Auth:', sid);
 				res.json({
 					msg: 'Success',
 					redirect: '/'
