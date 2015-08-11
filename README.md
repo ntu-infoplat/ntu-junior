@@ -1,11 +1,13 @@
 台大找直屬
 ====================
 台大找直屬是一個協助學長姐找到 B04 直屬的一個小工具
+
 採用 Facebook 登入，並有學號驗證的機制
 
 ## Getting Started
 
 本程式使用 Node.js + Express 4 + mongoDB 寫成
+
 欲運行，請確認已安裝相關平台的 Node.js, npm, mongoDB
 
     # 使用 npm 安裝相依套件
@@ -26,6 +28,7 @@
     MAILGUN_KEY=mailgun 寄信的 key
 
 環境變數可放置於 **local.env**，即可配合 foreman 協助設定
+
 並使用 **npm run start-dev** 執行
 
 ## Credits
