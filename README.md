@@ -1,8 +1,6 @@
 台大找直屬
 ====================
-台大找直屬是一個協助學長姐找到 B04 直屬的一個小工具
-
-採用 Facebook 登入，並有學號驗證的機制
+台大找直屬是一個協助學長姐找到 B04 直屬的一個小工具，採用 Facebook 登入，並有學號驗證的機制
 
 ## Getting Started
 
@@ -27,9 +25,7 @@
     MAILGUN_DOMAIN=mailgun 寄信的網域
     MAILGUN_KEY=mailgun 寄信的 key
 
-環境變數可放置於 **local.env**，即可配合 foreman 協助設定
-
-並使用 **npm run start-dev** 執行
+環境變數可放置於 **local.env**，即可配合 foreman 協助設定，並使用 **npm run start-dev** 執行
 
 ## Credits
  - [Shouko](https://github.com/shouko)
